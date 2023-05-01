@@ -3,12 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Rate,Spin,Button } from 'antd';
 import { addBookToShelf } from '../../redux/actions/bookshelfAction';
 import { Link } from 'react-router-dom';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 import { submitRating } from '../../redux/reducers/ratingSlice';
 import { Pagination } from 'antd';
 import { postDataAPI } from '../../utils/fetchData';
 import BookFilter from '../Bookfilter';
 import Rating from './rating';
+import { FavoriteButton } from './favoriteButton';
 const  Booklist =({query, books, selectedBook, isLoading, error }) => {   
   const dispatch = useDispatch();
   
@@ -89,9 +91,10 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
                      Read
                    </a>
                  </li>
-                 <li role="presentation" className="divider"></li>
+                
                </ul>
              </div>
+   
              {book.epub ? (
   <Link to={`/book/${book.bookId}`}>
     <Button className=" bg-brown text-white font-bold py-2 px-4 rounded-md flex items-center">Read online</Button>
@@ -99,9 +102,11 @@ const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
 ) :  book.buyLink && (
   <a href={`${book.buyLink}`} className="inline-block bg-brown text-white font-bold py-2 px-4 rounded-md">Buy Link</a>
 )} </Button.Group>
- 
+       <FavoriteButton added={false} auth={auth} book={book}/>
            </div>
+     
            </div>
+         
            <Rating isLoading={isLoading} averageRating={book.averageRating} bookId={book.bookId}/>
            </>
            

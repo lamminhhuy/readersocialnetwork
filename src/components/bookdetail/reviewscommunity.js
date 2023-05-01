@@ -17,13 +17,11 @@ const Reviewscommunity = ({bookId}) => {
   const  [inputcomment, setInpucomment] = useState("");
   useEffect(()=> {
 dispatch(fetchReviews(bookId))
-  },[])
+  },[bookId])
   if (isLoading) {
     return <Spin/>;
   }
-  if (error) {
-    return <p> {error}</p>;
-  }
+
   const handleCommentClick = () => {
     setIsCommentBoxVisible(!isCommentBoxVisible);
   }
@@ -43,38 +41,11 @@ dispatch(fetchReviews(bookId))
   }
   return (
     <div>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-  <h1 class="text-2xl font-bold mb-4">Community Reviews</h1>
-  <p class="text-3xl font-bold text-yellow-500 mb-2">4.47</p>
-  <p class="text-gray-500 mb-6">9,203,060 ratings · 145,749 reviews</p>
-  <ul className="flex flex-wrap justify-between mb-6">
-  <li className="w-1/5">
-    <p className="text-2xl font-bold text-green-500 mb-2">5 stars</p>
-    <p className="text-gray-500">{Math.round(5970327/9203060*100)}%</p>
-  </li>
-  <li className="w-1/5">
-    <p className="text-2xl font-bold text-green-500 mb-2">4 stars</p>
-    <p className="text-gray-500">{Math.round(2116536/9203060*100)}%</p>
-  </li>
-  <li className="w-1/5">
-    <p className="text-2xl font-bold text-green-500 mb-2">3 stars</p>
-    <p className="text-gray-500">{Math.round(779241/9203060*100)}%</p>
-  </li>
-  <li className="w-1/5">
-    <p className="text-2xl font-bold text-yellow-500 mb-2">2 stars</p>
-    <p className="text-gray-500">{Math.round(179528/9203060*100)}%</p>
-  </li>
-  <li className="w-1/5">
-    <p className="text-2xl font-bold text-red-500 mb-2">1 star</p>
-    <p className="text-gray-500">{Math.round(157428/9203060*100)}%</p>
-  </li>
-</ul>
-
- 
-</div>
+   
         <div class="border-t pt-4">
     <h3 class="text-lg font-bold mb-2">Các đánh giá đã được đăng</h3>
-    
+ {error ?
+     (<p> {error}</p> ):(<>
     <ul>{ reviews && reviews.map((review) => (  <li key ={review.author ? review.author._id:null} class="mb-2">
         <div class="flex items-center">
         <UserCard 
@@ -111,7 +82,7 @@ dispatch(fetchReviews(bookId))
         </div>
         </div>
       </li>))}
-    </ul>
+    </ul></>)}
   </div></div>
   )
 }

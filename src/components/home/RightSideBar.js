@@ -46,7 +46,7 @@ const RightSideBar = () => {
 </div>    
       <h2 class="text-lg font-bold my-2">{book.title}</h2>
       <p class="text-gray-500 text-sm mb-2">Author: {book.author_name}</p>
-      <p class="text-gray-500 text-sm mb-2">Thể loại: Thể loại sách 1</p>
+      <p class="text-gray-500 text-sm mb-2">Genre: {book.genre}</p>
    </div>
     </div>  </div>
     ))} 

@@ -16,6 +16,7 @@ export const addBookToShelf = ({name, user_id,book,auth}) =>async (dispatch) => 
     dispatch({ type: POST_TYPES.LOADING_POST, payload: true })
     try {
     const response =  await postDataAPI(`bookshelf/books`, data, auth.token)
+    console.log(response.data)
         dispatch({
           type: 'ADD_BOOK_TO_BOOKSHELF_SUCCESS',
           payload: response.data

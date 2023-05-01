@@ -24,8 +24,8 @@ const Menu = () => {
     }
 
     return (
-        <div className="menu mt-2">
-            <ul className="navbar-nav flex-row">
+        <div className="menu mt-2 mr-10">
+            <ul className="navbar-nav flex-row gap-1">
                 {
                     navLinks.map((link, index) => (
                         <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
@@ -59,7 +59,7 @@ const Menu = () => {
                 </li>
            
             
-                <li className="nav-item dropdown" style={{opacity: 1}} >
+                <li className="nav-item dropdown ml-1" style={{opacity: 1}} >
                     <span className="nav-link dropdown-toggle" id="navbarDropdown" 
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <Avatar src={auth.user&& auth.user.avatar} size="medium-avatar" />

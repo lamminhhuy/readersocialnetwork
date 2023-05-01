@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { setHistorysearch, setRecommendation } from '../redux/reducers/booksSlice';
+import { setHistorysearch, setQuery, setRecommendation } from '../redux/reducers/booksSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { postDataAPI } from '../utils/fetchData';
 import { POST_TYPES } from '../redux/actions/postAction';
@@ -60,6 +60,7 @@ const dispatch = useDispatch()
     const fetchData = async () => {
       if (selectedGenres.length > 0) {
         setLoading(true);
+    
         const relatedResponse = await axios.get(
           `https://www.googleapis.com/books/v1/volumes?q=${selectedGenres.join('+')}&maxResults=10&langRestrict=en+vi`
         );
@@ -103,8 +104,9 @@ const dispatch = useDispatch()
       return;
     }
     try {
-      setLoading(true);
 
+      setLoading(true);
+    const response1 = await postDataAPI('books/search-history',{userId:auth.user._id,        searchTerm: selectedGenres.join('+'), })
 const newbook2 =[...book.recommendedBooks].splice(0,4);
 
       const res = await postDataAPI('posts', {isFirstLogin: auth.user.isFirstLogin,recommendedBooks:newbook2}, auth.token) 

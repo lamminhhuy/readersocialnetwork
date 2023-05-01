@@ -35,10 +35,11 @@ export  const Group = () => {
   }, [id, dispatch]);
 
   const handleModalClose = (event) => {
-    if (event.target !== postFormRef.current && !postFormRef.current.contains(event.target)) {
+    if (postFormRef.current && event.target !== postFormRef.current && !postFormRef.current.contains(event.target)) {
       setModalIsOpen(false);
     }
   };
+  
   const renderMembers = useCallback(() => {
     return <GroupMembers key={group?.members?.length} members={group?.members} />;
   }, [group]);

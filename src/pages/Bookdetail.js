@@ -54,10 +54,11 @@ Buy on Google Play
 
   
 <div class="col-8 ml-auto">
-  <h1 class="text-3xl font-bold mb-2"></h1><h2 style={{ fontFamily: "'Copernicus', 'Libre Baskerville', Georgia, serif", fontSize: "36px", fontWeight: "600", lineHeight: "46px", color: "rgb(30, 25, 21)" }} className="text-lg font-medium mb-4">{selectedBook.title}</h2>
+  <h1 class="text-3xl font-bold mb-2"></h1>
+  <h1 class="text-3xl font-bold mb-4">{selectedBook.title}</h1>
 
-  <p class="text-gray-700 mb-2"><span class="font-medium">Author:</span> {selectedBook.author}</p>
-  <p class="text-gray-700 mb-2"><span class="font-medium">Average rating:</span> {selectedBook.averageRating}</p>
+  <p class="text-gray-700 mb-4"><span class="font-medium">Author:</span> {selectedBook.author}</p>
+  <p class="text-gray-700 mb-4"><span class="font-medium">Average rating:</span> {selectedBook.averageRating}</p>
   <p class="text-gray-700 mb-4"><span class="font-medium">Ratings:</span>{selectedBook.ratingsCount}</p>
   <p class="text-gray-700 mb-4"><span class="font-medium">Genres:</span> {selectedBook.genre}</p>
   <p class="text-gray-700 mb-4"><span class="font-medium">First Published:</span> {date}</p>
@@ -73,16 +74,21 @@ Buy on Google Play
   <h1>{selectedBook.title}</h1>
   <h2>By {selectedBook.author}</h2>
 
-  {selectedBook.downloadLink != "" && ( <Link to={`/book/${id}/`} > Read online  <button>
-      <FontAwesomeIcon icon={faBookOpen} />
-      </button></Link>
+  {selectedBook.downloadLink != "" && (   <Link to={`/book/${id}/`} className="inline-block">
+      <button
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center mt-2 mb-2"
+      >
+        <span className="mr-2">Read Online</span>
+        <FontAwesomeIcon icon={faBookOpen} />
+      </button>
+    </Link>
 
    )}
   
 </div>
 
-  <Reviewsection bookId={id}/>
-  <Reviewscommunity selectedBook={selectedBook}/>
+  <Reviewsection bookId={selectedBook.googleBooksId}/>
+  <Reviewscommunity bookId={selectedBook.googleBooksId}/>
 </div>
 
 

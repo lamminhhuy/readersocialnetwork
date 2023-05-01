@@ -18,7 +18,7 @@ const {isLoading} = useSelector(state => state.review)
 
   return (
     <div>
-      <div className="bg-gray-100 py-8">
+      <div className="mt-2 py-8  bg-white rounded-lg shadow-md hover:shadow-lg p-4">
         <h2 className="text-2xl font-bold text-center mb-8">Ratings & Reviews</h2>
         <div className="max-w-lg mx-auto">
           <div className="border-b-2 border-gray-300 pb-4 mb-4">

@@ -27,7 +27,7 @@ const Profile = () => {
       <div className="container ">
         <div className="row ">
           <div className="col-6  ">
-           <ActivitiesSection user={auth.user}posts={profile.posts[0]?.posts}/>
+           <ActivitiesSection userId ={id}  user={auth.user}posts={profile.posts?.posts}/>
           </div>
           <div className="col-6 ">
           <BookshelfSection user={auth.user}profile={profile} id={id} bookshelf={bookshelf} />

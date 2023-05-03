@@ -5,6 +5,7 @@ import { postAdded } from '../../redux/reducers/groupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 import { useParams } from 'react-router-dom';
+import { POST_TYPES } from '../../redux/actions/bookshelfAction';
 
 function PostForm({auth,groupId}) {
   const [books, setBooks] = useState([]);
@@ -37,9 +38,15 @@ const [formData, setFormData] = useState({
 const submitFormHandler = async (event) => {
     event.preventDefault();
     try {
+    
       const response = await postDataAPI('posts',formData, auth.token);
 console.log(formData.groupId)
-dispatch(postAdded(response.data))
+if(!groupId)
+{
+dispatch({type:POST_TYPES.CREATE_POST, payload:response.data});
+}else{
+  dispatch(postAdded(response.data))
+}
     } catch (error) {
       console.error(error);
     }
@@ -55,7 +62,7 @@ dispatch(postAdded(response.data))
                     })}>
                         &times;
                     </span></div> 
-        <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700">Book Name</label>
         <div className="mt-1 relative">
           <input
             id="title"

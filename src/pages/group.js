@@ -49,12 +49,13 @@ export  const Group = () => {
       <GroupMembers key={group?.members?.length} members={group?.members} />
       </div>
       <div className='col-10 '>
+     
         <div className=" relative  ">
-          <ReactModal isOpen={modalIsOpen} className="w-1/2 bg-#D0D0D0 rounded-md ">
+        
             <div ref={postFormRef} className=''>
-         {status&&     <PostForm auth={auth} groupId={id} closeModal={() => setModalIsOpen(false)} />}
+            {status&&     <PostForm auth={auth} groupId={group._id} />}
             </div>
-          </ReactModal>
+       
         </div>
         <div className="flex flex-col h-full">
           <div className="bg-white py-4 px-4 flex justify-between items-center">
@@ -84,7 +85,7 @@ export  const Group = () => {
         ) : groupStatus === 'failed' ? (
           <div>Failed to load group</div>
         ) : (
-          <div class="flex">
+          <div class="flex flex-col">
         
            
             { posts&& posts.map((post) => (

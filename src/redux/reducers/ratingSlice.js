@@ -2,12 +2,16 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { postDataAPI } from '../../utils/fetchData';
 import { updateAveragerating } from './booksSlice';
+import { PROFILE_TYPES, getProfileUsers } from '../actions/profileAction';
+
 export const submitRating = createAsyncThunk(
   'ratings/submitRating',
   async ({ bookId, rating, auth }, { rejectWithValue, dispatch }) => {
     try {
        const response = await postDataAPI(`books/rating/${bookId}`, { rating }, auth.token);
        dispatch(updateAveragerating({ bookId, newRating: rating }));
+       dispatch({type:PROFILE_TYPES.GET_POSTS, payload:response.data })
+       dispatch(getProfileUsers({id: auth.user._id,auth: auth}))
        return {bookId,rating};
     } catch (err) {
     

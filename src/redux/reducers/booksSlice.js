@@ -22,19 +22,18 @@ const initialState = {
 export const getSearchHistory = createAsyncThunk ("books/getquery", async (userId) => {
 try {
   const response1 = await getDataAPI(`books/search-history/${userId}`)
-  return response1.data.query
+  return response1.data
 }catch (e)
 {
   throw new Error(e)
 }
 })
-
 export const recommendBooks = createAsyncThunk(
   "books/recommendBooks",
   async ({querybook, userId}) => {
     
     try {
-    
+    console.log(querybook)
       const response1 = await postDataAPI('books/search-history',{userId:userId,        searchTerm: querybook, }
       );
 
@@ -82,7 +81,34 @@ export const recommendBooks = createAsyncThunk(
     }
   }
 );
+export const suggestbook = createAsyncThunk("books/suggestbook", async (query) => {
+  try {
+    const response = await axios.get(
+      `https://www.googleapis.com/books/v1/volumes?q=${query}&langRestrict=en+vi`
+    );
+    const books = response.data.items.map((book) => {
+      return {
+        bookId: book.id,
+        title: book.volumeInfo.title,
+        author_name: book.volumeInfo.authors
+          ? book.volumeInfo.authors.join(", ")
+          : "N/A",
+        isbn: book.volumeInfo.industryIdentifiers
+          ? book.volumeInfo.industryIdentifiers[0].identifier
+          : "N/A",
+        genre: book.volumeInfo.categories
+          ? book.volumeInfo.categories.join(", ")
+          : "N/A",
+        cover_i: book.volumeInfo.imageLinks?.thumbnail ?? null,
+        epub: book.accessInfo.epub.isAvailable
+      };
+    }).filter((book) => book.cover_i !== null);
 
+    return books;
+  } catch (error) {
+    throw new Error("Failed to search books.");
+  }
+});
 
 export const searchBooks = createAsyncThunk("books/searchBooks", async (query) => {
   try {
@@ -181,11 +207,17 @@ export const booksSlice = createSlice({
   
   extraReducers: (builder) => {
     builder
-  
+    .addCase(suggestbook.pending, (state) => {
+    state.error = null;
+    })
     .addCase(getSearchHistory.pending, (state) => {
       state.error = null;
       })
-
+    .addCase(suggestbook.fulfilled, (state, action) => {
+    state.isLoading = false;
+    state.booksuggestion = action.payload;
+    state.error = null;
+    })
     .addCase(getSearchHistory.fulfilled, (state, action) => {
       state.isLoading = false;
       state.query = action.payload;
@@ -196,7 +228,11 @@ export const booksSlice = createSlice({
         state.query = [];
         state.error =  action.error.message;
         })
-  
+    .addCase(suggestbook.rejected, (state, action) => {
+    state.isLoading = false;
+    state.booksuggestion = [];
+    state.error = action.error.message;
+    })
     .addCase(searchBooks.pending, (state) => {
     state.isLoading = true;
     state.error = null;

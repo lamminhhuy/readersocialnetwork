@@ -108,9 +108,7 @@ const dispatch = useDispatch()
       setLoading(true);
     const response1 = await postDataAPI('books/search-history',{userId:auth.user._id,        searchTerm: selectedGenres.join('+'), })
 const newbook2 =[...book.recommendedBooks].splice(0,4);
-
       const res = await postDataAPI('posts', {isFirstLogin: auth.user.isFirstLogin,recommendedBooks:newbook2}, auth.token) 
-
       dispatch({
         type: POST_TYPES.GET_POSTS, 
         payload: {posts:res.data}

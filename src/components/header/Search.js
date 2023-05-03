@@ -15,7 +15,7 @@ const Search = () => {
     const query = event.target.value;
     setQueryValue(query);
 
-   
+    dispatch(suggestbook(query));
   };
 
   const handleSearch = (e) => {
@@ -23,7 +23,6 @@ const Search = () => {
     if (query.trim()) {
       history('/search/' + query);
       dispatch(setQuery(query))
-      dispatch(searchBooks(query))
       dispatch(recommendBooks({querybook: query,userId:user._id}))
     } else {
       history('/');

@@ -11,14 +11,17 @@ const Following = ({users, setShowFollowing}) => {
                 <h5 className="text-center">Following</h5>
                 <hr/>
 
-                <div className="follow_content">
+                <div className="follow_content ">
                     {
                         users.map(user => (
+                            <div className='flex gap-3 items-center'>
                             <UserCard key={user._id} user={user} setShowFollowing={setShowFollowing} >
-                                {
+                            
+                            </UserCard>
+                            {
                                     auth.user._id !== user._id && <FollowBtn user={user} />
                                 }
-                            </UserCard>
+                            </div>
                         ))
                     }
                 </div>

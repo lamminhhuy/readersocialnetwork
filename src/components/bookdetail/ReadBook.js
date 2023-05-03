@@ -1,9 +1,10 @@
 import React, {useRef, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Spin } from "antd";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+
 const ReadBook = () => { 
   const { id } = useParams();  
   const [pageNumber, setPageNumber] = useState(1);
@@ -69,7 +70,7 @@ const onloadHanlder = () => {
 
   return (
     <>
-    <div className='w-100 h-10 bg-brown'></div>
+    <div className='w-100 h-10 bg-brown flex items-center'> <Link to={'/'}> <img  src='https://res.cloudinary.com/dpzpv7tjr/image/upload/v1682266848/ReadChoice/logo_wvfeun.png' className='w-40 object-contain ml-2 hover:cursor'/></Link> </div>
     <div className="min-h-screen book-reader">  
       <iframe  className="w-full"
         title={id} 

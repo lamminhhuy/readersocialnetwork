@@ -2,20 +2,22 @@ import { Spin } from 'antd';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addReview } from '../../redux/reducers/reviewSlice';
+import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 
 const Reviewsection = ({bookId}) => {
   const [reviewText, setReviewText] = useState('');
   const {user} = useSelector (state => state.auth)
   
 const dispatch = useDispatch();
-const {isLoading} = useSelector(state => state.review)
+const {isLoading,error} = useSelector(state => state.review)
   const handleSubmit = (event) => {
   
     event.preventDefault();
     dispatch(addReview({ userId :user._id,bookId,reviewText:reviewText}))
+    
     setReviewText('');
   };
-
+ 
   return (
     <div>
       <div className="mt-2 py-8  bg-white rounded-lg shadow-md hover:shadow-lg p-4">

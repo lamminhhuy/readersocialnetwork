@@ -18,6 +18,7 @@ export const fetchGroupsAsync = createAsyncThunk(
   }
 );
 export const fetchGroup = createAsyncThunk('group/fetchGroup', async (groupId) => {
+
   const response = await axios.get(`/api/groups/${groupId}`);
   return response.data;
 });

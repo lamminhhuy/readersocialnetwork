@@ -7,7 +7,7 @@ const GroupsList = ({ groups }) => {
       <div className="flex flex-wrap -mx-2 w-full">
         {groups.map((group) => (
           <div key={group._id} className="px-2 mb-4 ">
-          <Link to= {`/group/show/${group._id}`}><GroupCard group={group} /></Link>
+          <Link to= {`/group/${group._id}`}><GroupCard group={group} /></Link>
           </div>
           ))}
           </div>

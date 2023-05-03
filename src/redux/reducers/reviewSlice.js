@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getDataAPI, postDataAPI } from '../../utils/fetchData';
+import { GLOBALTYPES } from '../actions/globalTypes';
 
 export const reviewSlice = createSlice({
   name: 'review',
@@ -62,7 +63,10 @@ export const addReview = ({ userId, bookId, reviewText }) => async dispatch => {
   try {
     const response = await postDataAPI(`books/review/${userId}/${bookId}`, { reviewText: reviewText });
     dispatch(reviewAdded(response.data));
+    
   } catch (error) {
+        dispatch(loadingFailed());
+        dispatch({type:GLOBALTYPES.ALERT, payload: {error:error.response.data.message} })
     console.error(error);
   }
 };

@@ -22,7 +22,7 @@ const RightSideBar = () => {
        const fetchRecommendedBooks = useCallback(() => {
         dispatch(getSearchHistory(auth.user._id)).then((data) => {
    
-          dispatch(recommendBooks({querybook:data.payload[0], userId:auth.user._id}))
+          dispatch(recommendBooks({querybook:data.payload, userId:auth.user._id}))
         })
       }, [auth.user._id]);
       useEffect(() => {

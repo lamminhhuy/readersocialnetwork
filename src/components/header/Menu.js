@@ -68,14 +68,11 @@ const Menu = () => {
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                     <Link className="dropdown-item" to={`/profile/${auth.user&& auth.user._id}`}>Profile</Link>
 
-                    <label htmlFor="theme" className="dropdown-item"
-                    onClick={() => dispatch({
-                        type: GLOBALTYPES.THEME, payload: !theme
-                    })}>
-
-                        {theme ? 'Light mode' : 'Dark mode'}
-                    </label>
-
+                  
+                    <Link className="dropdown-item" to="/admindashboard"
+                >
+                        Admin panel
+                    </Link>
                     <div className="dropdown-divider"></div>
                     <Link className="dropdown-item" to="/"
                     onClick={() => dispatch(logout())}>

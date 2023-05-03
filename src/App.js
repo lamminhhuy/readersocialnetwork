@@ -28,6 +28,7 @@ import io from 'socket.io-client'
 import { GLOBALTYPES } from './redux/actions/globalTypes'
 import PostForm from './components/group/PostForm';
 import Peer from 'peerjs'
+import AdminPanel from './pages/adminpanel';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ useEffect(() => {
 },[dispatch])
 useEffect(() => {
   if(auth.token) {
+    
     dispatch(getPosts(auth.token))
   }
 }, [dispatch, auth.token])
@@ -90,7 +92,7 @@ useEffect(() => {
      <Routes>
      <Route exact path="/" element={auth.token ? <Home/> : <Login/>}/>
      <Route exact path="/register" element={<Register/>} />
-     <Route path="/search/:keyword" element={auth.token ? <BookSection/>:<Login/>} exact />
+     <Route path="/search/:keyword" element={auth.token ? <SearchScreen/>:<Login/>} exact />
      <Route path="/bookself" element={auth.token ? <Bookshelf/>: <Login/>} exact />
      <Route path="/friends" element={auth.token ? <Friends/>:<Login/>} exact />
      <Route path="/user/edit_fav_genres" element={auth.token ? <FavoriteGenre/>:<Login/>} exact />
@@ -100,7 +102,8 @@ useEffect(() => {
      <Route exact path="/group/:id" element={auth.token ? <Group/>:<Login/>}/>
      <Route exact path="/search/groups" element={auth.token ? <Searchgroup/>:<Login/>}/>
      <Route exact path="/group/new" element={auth.token ? <GroupForm/>:<Login/>}/>
-     <Route exact path="/group/show/:id" element={auth.token ? <Group/>:<Login/>}/>
+     
+     <Route exact path="/admindashboard" element={auth.token ? <AdminPanel/>:<Login/>}/>
      </Routes>
    
      </div>

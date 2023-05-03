@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { postDataAPI } from '../../utils/fetchData';
+import { getDataAPI, postDataAPI } from '../../utils/fetchData';
 
 export const reviewSlice = createSlice({
   name: 'review',
@@ -36,7 +36,7 @@ export const { startLoading, loadingFailed, reviewsReceived, reviewAdded } = rev
 export const fetchReviews = (bookId) => async dispatch => {
   dispatch(startLoading());
   try {
-    const response = await postDataAPI(`books/reviews/${bookId}`);
+    const response = await getDataAPI(`books/reviews/${bookId}`);
     dispatch(reviewsReceived(response.data));
   } catch (error) {
     dispatch(loadingFailed(error.message));
